@@ -25,12 +25,12 @@ but it should be able to run `psql` without needing an interactive password.
 
 You can include any of these optional settings in the config file:
 
-    env.DBPORT 5433         # default is 5432
-    env.DBHOST mydb01       # default is unset (peer authentication to the local host)
-    env.DBNAME myapp_prod   # default is unset (checks all databases)
-    env.DBUSER myapp_user   # default is unset (peer authentication with the OS user above)
+    env.PGPORT 5433         # default is 5432
+    env.PGHOST mydb01       # default is unset (peer authentication to the local host)
+    env.PGDATABASE myapp_prod   # default is unset (checks all databases)
+    env.PGUSER myapp_user   # default is unset (peer authentication with the OS user above)
 
-If you use `DBUSER`, it should refer to a postgres role.
+If you use `PGUSER`, it should refer to a postgres role.
 You may need a [`.pgpass`](https://www.postgresql.org/docs/current/static/libpq-pgpass.html) file
 so that munin can run `psql` with that user without prompting for a password.
 
@@ -45,10 +45,10 @@ Then set up the configurations accordingly:
     user postgres
 
     [postgresql_blocked_queries_production]
-    env.DBNAME myapp_prod
+    env.PGUSER myapp_prod
 
     [postgresql_blocked_queries_staging]
-    env.DBNAME myapp_staging
+    env.PGUSER myapp_staging
 
 In the graphs, the extra part of the plugin name will appear in the title.
 

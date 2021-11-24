@@ -16,10 +16,10 @@
 
 # dbhost: The host where Postgres is running.
 #         Note if you set this you will need a .pgpass file also.
-dbname=${DBNAME}
-dbhost=${DBHOST}
-dbport=${DBPORT:-5432}
-dbuser=${DBUSER}
+dbname=${PGDATABASE}
+dbhost=${PGHOST}
+dbport=${PGPORT:-5432}
+dbuser=${PGUSER}
 
 plugin_name=`basename "$0"`
 plugin_name=${plugin_name#"postgresql_blocked_queries"}
