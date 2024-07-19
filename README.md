@@ -5,18 +5,19 @@ not provided by [the normal Postgres plugins](https://github.com/munin-monitorin
 
 These plugins are included:
 
-## `postgresql_blocked_queries`
+## `postgres_blocked_queries`
 
 Shows the number of queries currently waiting on a lock.
 
-To install, symlink to your plugins directory:
+To install, copy this to `/usr/local/share/munin/plugins` (or somewhere else if you prefer),
+then symlink from there to your plugins directory:
 
-    sudo ln -sf /this/directory/postgresql_blocked_queries /etc/munin/plugins/postgresql_blocked_queries
+    sudo ln -sf /usr/local/share/munin/plugins/postgres_blocked_queries /etc/munin/plugins/postgres_blocked_queries
 
 then make sure it runs as postgres:
 
-    cat <<EOF | sudo tee /etc/munin/plugin-conf.d/postgresql_extras
-    [postgresql_blocked_queries]
+    cat <<EOF | sudo tee /etc/munin/plugin-conf.d/postgres_extras
+    [postgres_blocked_queries]
     user postgres
     EOF
 
@@ -36,23 +37,23 @@ so that munin can run `psql` with that user without prompting for a password.
 
 You may also run multiple copies of this plugin by adding extra to the symlink name, e.g.:
 
-    sudo ln -sf /this/directory/postgresql_blocked_queries /etc/munin/plugins/postgresql_blocked_queries_production
-    sudo ln -sf /this/directory/postgresql_blocked_queries /etc/munin/plugins/postgresql_blocked_queries_staging
+    sudo ln -sf /this/directory/postgres_blocked_queries /etc/munin/plugins/postgres_blocked_queries_production
+    sudo ln -sf /this/directory/postgres_blocked_queries /etc/munin/plugins/postgres_blocked_queries_staging
 
 Then set up the configurations accordingly:
 
-    [postgresql_blocked_queries*]
+    [postgres_blocked_queries*]
     user postgres
 
-    [postgresql_blocked_queries_production]
+    [postgres_blocked_queries_production]
     env.PGUSER myapp_prod
 
-    [postgresql_blocked_queries_staging]
+    [postgres_blocked_queries_staging]
     env.PGUSER myapp_staging
 
 In the graphs, the extra part of the plugin name will appear in the title.
 
 You can test your setup like this:
 
-    sudo munin-run postgresql_blocked_queries config
-    sudo munin-run postgresql_blocked_queries
+    sudo munin-run postgres_blocked_queries config
+    sudo munin-run postgres_blocked_queries
